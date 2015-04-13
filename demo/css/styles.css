@@ -6,5 +6,30 @@ html, body {
 }
 
 body {
-    height: 600%;;
+    height: 600%;
+    background-color: #100F14;
+    color: #fff;
+    font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.wrapper {
+    width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 125px;
+    letter-spacing: 0px;
+    text-align: center;
+    margin-top: 0px;
+}
+
+svg {
+    width: 230px;
+    height: 220px;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    text-align: center;
 }
