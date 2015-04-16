@@ -7,9 +7,10 @@ html, body {
 
 body {
     height: 600%;
-    background-color: #100F14;
-    color: #fff;
+    color: #0C1F31;
+    background: #fff;
     font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
 }
 
 .wrapper {
@@ -19,17 +20,25 @@ body {
 }
 
 h1 {
-    font-weight: 600;
-    font-size: 125px;
-    letter-spacing: 0px;
-    text-align: center;
-    margin-top: 0px;
+  font-size: 120px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  margin-top: 120px;
 }
 
-svg {
-    width: 230px;
-    height: 220px;
-    margin-top: 70px;
-    margin-bottom: 30px;
-    text-align: center;
+p {
+  width: 600px;
+  font-size: 24px;
+  font-weight: 400;
+  margin: auto;
+  line-height: 35px
+}
+
+.down-arrow {
+  font-size: 120px;
+  margin-top: 90px;
+  margin-bottom: 90px;
+  transform: scaleY(0.8);
+  text-shadow: 0px -20px #0C1F31, 0px 0px #C33329;
+  color: rgba(0,0,0,0);
 }
