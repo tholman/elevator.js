@@ -20,25 +20,53 @@ body {
 }
 
 h1 {
-  font-size: 120px;
-  font-weight: 600;
-  margin-bottom: 30px;
-  margin-top: 120px;
+    font-size: 120px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    margin-top: 120px;
 }
 
 p {
-  width: 600px;
-  font-size: 24px;
-  font-weight: 400;
-  margin: auto;
-  line-height: 35px
+    width: 600px;
+    font-size: 24px;
+    font-weight: 400;
+    margin: auto;
+    line-height: 35px
 }
 
 .down-arrow {
-  font-size: 120px;
-  margin-top: 90px;
-  margin-bottom: 90px;
-  transform: scaleY(0.8);
-  text-shadow: 0px -20px #0C1F31, 0px 0px #C33329;
-  color: rgba(0,0,0,0);
+    font-size: 120px;
+    margin-top: 90px;
+    margin-bottom: 90px;
+    text-shadow: 0px -20px #0C1F31, 0px 0px #C33329;
+    color: rgba(0,0,0,0);
+
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scaleY(0.8);
+}
+
+.footer {
+    box-sizing: border-box;
+    padding-top: 190px;
+    height: 300px;
+}
+
+.elevator {
+    text-align: center;
+    cursor: pointer;
+    width: 140px;
+    margin: auto;
+}
+
+.elevator:hover {
+    opacity: 0.7;
+}
+
+.elevator svg {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
 }

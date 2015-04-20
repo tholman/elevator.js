@@ -14,14 +14,17 @@ var Elevator = (function() {
     'use strict';
 
     // Elements
-    var body = document.body;
+    var body = null;
 
     // Scroll vars
     var animation = null;
-    var duration = 5000; // ms
+    var duration = null; // ms
     var customDuration = false;
     var startTime = null;
     var startPosition = null;
+
+    var mainAudio;
+    var endAudio;
 
     /**
      * Utils
@@ -81,26 +84,67 @@ var Elevator = (function() {
 //    [_____________]
     function elevate() {
         startPosition = body.scrollTop;
+
+        // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
+        if( !customDuration ) {
+            duration = (startPosition * 1.5);
+        }
+
         requestAnimationFrame( animateLoop );
 
         // Start music!
+        if( mainAudio ) {
+            mainAudio.play();
+        }
     }
 
     function animationFinished() {
         startTime = null;
         startPosition = null;
+
+        // Start music!
+        if( mainAudio ) {
+            mainAudio.pause();
+            mainAudio.currentTime = 0;
+        }
+
+        if( endAudio ) {
+            endAudio.play();
+        }
     }
 
+    function bindElevateToElement( element ) {
+        element.addEventListener('click', elevate, false);
+    }
+
+    // Init, takes options. 
     function main( options ) {
 
         // Bind to element click event, if need be.
+        body = document.body;
 
-        // Custom Duration, if need be
+        if( options.element ) {
+            bindElevateToElement( options.element );
+        }
 
-        // Music file, 100% needed... create element here.
+        if( options.duration ) {
+            customDuration = true;
+            duration = options.duration;
+        }
+
+        if( options.mainAudio ) {
+            mainAudio = new Audio( options.mainAudio );
+            mainAudio.setAttribute( 'preload', 'true' ); //@TODO: Option to not preload audio.
+            mainAudio.setAttribute( 'loop', 'true' );
+        }
+
+        if( options.endAudio ) {
+            endAudio = new Audio( options.endAudio );
+            endAudio.setAttribute( 'preload', 'true' );
+        }
     }
 
     return extend(main, {
         elevate: elevate
     });
-});
+})();
