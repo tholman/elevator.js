@@ -91,6 +91,7 @@ var Elevator = (function() {
             return;
         }
 
+        elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
         
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
@@ -109,6 +110,7 @@ var Elevator = (function() {
     function animationFinished() {
         startTime = null;
         startPosition = null;
+        elevating = false;
 
         // Start music!
         if( mainAudio ) {
