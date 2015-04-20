@@ -22,12 +22,12 @@ body {
 h1 {
     font-size: 120px;
     font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 8px;
     margin-top: 120px;
 }
 
 p {
-    width: 600px;
+    width: 900px;
     font-size: 24px;
     font-weight: 400;
     margin: auto;
@@ -41,8 +41,8 @@ p {
     text-shadow: 0px -20px #0C1F31, 0px 0px #C33329;
     color: rgba(0,0,0,0);
 
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
+    -webkit-transform: scaleY(0.8);
+    -moz-transform: scaleY(0.8);
     transform: scaleY(0.8);
 }
 
@@ -69,4 +69,30 @@ p {
     display: block;
     margin: auto;
     margin-bottom: 5px;
+}
+
+.github-link {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+}
+
+.links {
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.links a, iframe {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+iframe {
+    margin-bottom: -3px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #0C1F31;
 }

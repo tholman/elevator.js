@@ -26,6 +26,8 @@ var Elevator = (function() {
     var mainAudio;
     var endAudio;
 
+    var elevating = false;
+
     /**
      * Utils
      */
@@ -60,7 +62,8 @@ var Elevator = (function() {
 
         var timeSoFar = time - startTime;
         var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);                        
-        body.scrollTop = easedPosition
+        
+        window.scrollTo(0, easedPosition);
 
         if( timeSoFar < duration ) {
             requestAnimationFrame(animateLoop);
@@ -83,8 +86,13 @@ var Elevator = (function() {
 //     C__O__O__O__D
 //    [_____________]
     function elevate() {
-        startPosition = body.scrollTop;
 
+        if( elevating ) {
+            return;
+        }
+
+        startPosition = (document.documentElement.scrollTop || body.scrollTop);
+        
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if( !customDuration ) {
             duration = (startPosition * 1.5);
@@ -113,11 +121,11 @@ var Elevator = (function() {
         }
     }
 
+    //@TODO: Does this need tap bindings too?
     function bindElevateToElement( element ) {
         element.addEventListener('click', elevate, false);
     }
 
-    // Init, takes options. 
     function main( options ) {
 
         // Bind to element click event, if need be.
