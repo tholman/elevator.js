@@ -1,5 +1,7 @@
 # elevator.js
-Finally, a "back to top" button that behaves like a real elevator, by adding elevator music to quietly soothe the awkwardness that can ensue when being smoothly scrolled to the top of the screen. This is very serious stuff, [here's a demo](http://tholman.com/elevator.js)!
+Finally, a "back to top" button that behaves like a real elevator, by adding elevator music to quietly soothe the awkwardness that can ensue when being smoothly scrolled to the top of the screen.
+
+This is very serious stuff, [here's a demo](http://tholman.com/elevator.js)!
 
 ### Instructions
 
@@ -26,7 +28,7 @@ elevator.elevate();
 </script>
 ```
 
-You can also add an "element", which clicking will invoke the "scroll to top" functionality.
+You can also add an "element" option, clicking this element will invoke the "Scroll to top" functionality, we all love and crave.
 ```html
 <div class="elevator-button">Back to Top</div>
 
@@ -43,7 +45,7 @@ window.onload = function() {
 </script>
 ```
 
-If you're really serious, you don't have to use audio... and can also set a fixed time to scroll to the top
+If you're really serious (boring), you don't have to use audio... and can also set a fixed time to scroll to the top
 ```html
 <div class="elevator-button">Back to Top</div>
 
