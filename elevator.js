@@ -66,7 +66,7 @@ var Elevator = (function() {
         window.scrollTo(0, easedPosition);
 
         if( timeSoFar < duration ) {
-            requestAnimationFrame(animateLoop);
+            animation = requestAnimationFrame(animateLoop);
         } else {
             animationFinished();
         }
@@ -107,10 +107,15 @@ var Elevator = (function() {
         }
     }
 
-    function animationFinished() {
+    function resetPositions() {
         startTime = null;
         startPosition = null;
         elevating = false;
+    }
+
+    function animationFinished() {
+        
+        resetPositions();
 
         // Stop music!
         if( mainAudio ) {
@@ -120,6 +125,23 @@ var Elevator = (function() {
 
         if( endAudio ) {
             endAudio.play();
+        }
+    }
+
+    function onWindowBlur() {
+
+        // If animating, go straight to the top. And play no more music.
+        if( elevating ) {
+
+            cancelAnimationFrame( animation );
+            resetPositions();
+
+            if( mainAudio ) {
+                mainAudio.pause();
+                mainAudio.currentTime = 0;
+            }
+
+            window.scrollTo(0, 0);
         }
     }
 
@@ -152,6 +174,8 @@ var Elevator = (function() {
             endAudio = new Audio( options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
         }
+
+        window.addEventListener('blur', onWindowBlur, false);
     }
 
     return extend(main, {
