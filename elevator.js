@@ -24,7 +24,7 @@ var Elevator = (function() {
     var startPosition = null;
 
     var mainAudio;
-    var mainVolume;
+    var endAudio;
 
     var elevating = false;
 
