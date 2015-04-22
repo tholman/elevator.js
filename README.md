@@ -9,7 +9,7 @@ This is very serious stuff, [here's a demo](http://tholman.com/elevator.js)!
 
 #### JS
 
-`Elevator.js` lives intirely within the js realm, which makes things fairly simple to use.
+`Elevator.js` lives entirely within the js realm, which makes things fairly simple to use.
 
 You'll need to create a new instance of `Elevator`, and pass it some audio elements.
 ```html
