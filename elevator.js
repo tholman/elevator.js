@@ -24,7 +24,7 @@ var Elevator = (function() {
     var startPosition = null;
 
     var mainAudio;
-    var endAudio;
+    var mainVolume;
 
     var elevating = false;
 
@@ -169,10 +169,18 @@ var Elevator = (function() {
             mainAudio.setAttribute( 'preload', 'true' ); //@TODO: Option to not preload audio.
             mainAudio.setAttribute( 'loop', 'true' );
         }
+        
+        if( options.mainVolume ) {
+            mainAudio.volume = options.mainVolume;
+        }
 
         if( options.endAudio ) {
             endAudio = new Audio( options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
+        }
+        
+        if( options.endVolume ) {
+            endAudio.volume = options.endVolume;
         }
 
         window.addEventListener('blur', onWindowBlur, false);
