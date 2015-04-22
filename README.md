@@ -65,4 +65,4 @@ window.onload = function() {
 
 The MIT License (MIT)
 
-Copyright (C) 2014 ~ [Tim Holman](http://tholman.com) ~ timothy.w.holman@gmail.com
+Copyright (C) 2015 ~ [Tim Holman](http://tholman.com) ~ timothy.w.holman@gmail.com

@@ -112,7 +112,7 @@ var Elevator = (function() {
         startPosition = null;
         elevating = false;
 
-        // Start music!
+        // Stop music!
         if( mainAudio ) {
             mainAudio.pause();
             mainAudio.currentTime = 0;
