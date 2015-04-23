@@ -1,0 +1,30 @@
+{
+  "name": "elevator.js",
+  "version": "1.0.0",
+  "description": "Finally, a \"back to top\" button that behaves like a real elevator.",
+  "main": "src/elevator.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tholman/elevator.js.git"
+  },
+  "keywords": [
+    "elevator"
+  ],
+  "author": "Tim Holman ~ timothy.w.holman@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tholman/elevator.js/issues"
+  },
+  "homepage": "https://github.com/tholman/elevator.js",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-jshint": "^1.10.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0"
+  }
+}

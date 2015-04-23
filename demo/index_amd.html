@@ -4,9 +4,6 @@
         <title> Elevator.js </title>
         <meta name="description" content="Are you sick of clicking 'back to top' buttons on websites, and being lifted to the top without a real elevator experience? Elevator.js is here to help.">
 
-        <!-- JS -->
-        <script src='../src/elevator.js'></script>
-
         <!-- CSS -->
         <link href='./css/styles.css' rel='stylesheet'>
     </head>
@@ -77,7 +74,7 @@
 
         <div class="down-arrow">&#9660;</div>
         <p>
-            Ok, here we are... click that elevator! 
+            Ok, here we are... click that elevator!
         </p>
 
         <div class="footer">
@@ -96,16 +93,18 @@
             <img src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
         </a>
 
+        <!-- JS -->
+        <script type="text/javascript" src="../bower_components/requirejs-bower/require.js"></script>
         <script>
-
-            // Simple elevator usage.
-            var elementButton = document.querySelector('.elevator');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: './music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  './music/ding.mp3', // Music from http://www.bensound.com/
+            require(['../src/elevator'], function(Elevator) {
+                // Simple elevator usage.
+                var elementButton = document.querySelector('.elevator');
+                var elevator = new Elevator({
+                    element: elementButton,
+                    mainAudio: './music/elevator-music.mp3', // Music from http://www.bensound.com/
+                    endAudio:  './music/ding.mp3', // Music from http://www.bensound.com/
+                });
             });
-
         </script>
 
         <!-- Tweet Button -->
