@@ -8,9 +8,20 @@
 /*********************************************
  * Elevator.js
  *********************************************/
-
-var Elevator = (function() {
-
+(function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define([], function() {
+            // Also create a global in case some scripts
+            // that are loaded still are looking for
+            // a global even when an AMD loader is in use.
+            return (root.Elevator = factory());
+        });
+    } else {
+        // Browser globals
+        root.Elevator = factory();
+    }
+}(this, function() {
     'use strict';
 
     // Elements
@@ -33,76 +44,75 @@ var Elevator = (function() {
      */
 
     // Soft object augmentation
-    function extend( target, source ) {
-        for ( var key in source ) {
-            if ( !( key in target ) ) {
-                target[ key ] = source[ key ];
+    function extend(target, source) {
+        for (var key in source) {
+            if (!(key in target)) {
+                target[key] = source[key];
             }
         }
         return target;
-    };
+    }
 
     // Thanks Mr Penner - http://robertpenner.com/easing/
-    function easeInOutQuad( t, b, c, d ) {
-        t /= d/2;
-        if (t < 1) return c/2*t*t + b;
+    function easeInOutQuad(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
         t--;
-        return -c/2 * (t*(t-2) - 1) + b;
-    };
+        return -c / 2 * (t * (t - 2) - 1) + b;
+    }
 
     /**
      * Main
      */
 
     // Time is passed through requestAnimationFrame, what a world!
-    function animateLoop( time ) {
+    function animateLoop(time) {
         if (!startTime) {
             startTime = time;
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);                        
-        
+        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);
+
         window.scrollTo(0, easedPosition);
 
-        if( timeSoFar < duration ) {
+        if (timeSoFar < duration) {
             animation = requestAnimationFrame(animateLoop);
         } else {
             animationFinished();
         }
-   };
+    }
 
-//            ELEVATE!
-//              /
-//         ____
-//       .'    '=====<0
-//       |======|
-//       |======|
-//       [IIIIII[\--()
-//       |_______|
-//       C O O O D
-//      C O  O  O D
-//     C  O  O  O  D
-//     C__O__O__O__D
-//    [_____________]
+    //            ELEVATE!
+    //              /
+    //         ____
+    //       .'    '=====<0
+    //       |======|
+    //       |======|
+    //       [IIIIII[\--()
+    //       |_______|
+    //       C O O O D
+    //      C O  O  O D
+    //     C  O  O  O  D
+    //     C__O__O__O__D
+    //    [_____________]
     function elevate() {
-
-        if( elevating ) {
+        if (elevating) {
             return;
         }
 
         elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
-        
+
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
-        if( !customDuration ) {
+        if (!customDuration) {
             duration = (startPosition * 1.5);
         }
 
-        requestAnimationFrame( animateLoop );
+        requestAnimationFrame(animateLoop);
 
         // Start music!
-        if( mainAudio ) {
+        if (mainAudio) {
             mainAudio.play();
         }
     }
@@ -114,29 +124,26 @@ var Elevator = (function() {
     }
 
     function animationFinished() {
-        
         resetPositions();
 
         // Stop music!
-        if( mainAudio ) {
+        if (mainAudio) {
             mainAudio.pause();
             mainAudio.currentTime = 0;
         }
 
-        if( endAudio ) {
+        if (endAudio) {
             endAudio.play();
         }
     }
 
     function onWindowBlur() {
-
         // If animating, go straight to the top. And play no more music.
-        if( elevating ) {
-
-            cancelAnimationFrame( animation );
+        if (elevating) {
+            cancelAnimationFrame(animation);
             resetPositions();
 
-            if( mainAudio ) {
+            if (mainAudio) {
                 mainAudio.pause();
                 mainAudio.currentTime = 0;
             }
@@ -146,33 +153,32 @@ var Elevator = (function() {
     }
 
     //@TODO: Does this need tap bindings too?
-    function bindElevateToElement( element ) {
+    function bindElevateToElement(element) {
         element.addEventListener('click', elevate, false);
     }
 
-    function main( options ) {
-
+    function main(options) {
         // Bind to element click event, if need be.
         body = document.body;
 
-        if( options.element ) {
-            bindElevateToElement( options.element );
+        if (options.element) {
+            bindElevateToElement(options.element);
         }
 
-        if( options.duration ) {
+        if (options.duration) {
             customDuration = true;
             duration = options.duration;
         }
 
-        if( options.mainAudio ) {
-            mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', 'true' ); //@TODO: Option to not preload audio.
-            mainAudio.setAttribute( 'loop', 'true' );
+        if (options.mainAudio) {
+            mainAudio = new Audio(options.mainAudio);
+            mainAudio.setAttribute('preload', 'true'); //@TODO: Option to not preload audio.
+            mainAudio.setAttribute('loop', 'true');
         }
 
-        if( options.endAudio ) {
-            endAudio = new Audio( options.endAudio );
-            endAudio.setAttribute( 'preload', 'true' );
+        if (options.endAudio) {
+            endAudio = new Audio(options.endAudio);
+            endAudio.setAttribute('preload', 'true');
         }
 
         window.addEventListener('blur', onWindowBlur, false);
@@ -181,4 +187,4 @@ var Elevator = (function() {
     return extend(main, {
         elevate: elevate
     });
-})();
+}));
