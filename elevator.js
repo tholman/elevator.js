@@ -56,6 +56,10 @@ var Elevator = (function() {
 
     // Time is passed through requestAnimationFrame, what a world!
     function animateLoop( time ) {
+		if(!elevating) {
+			return; // If animationFinished has been called then we should stop animating immediately
+		}
+	
         if (!startTime) {
             startTime = time;
         }
@@ -105,6 +109,31 @@ var Elevator = (function() {
         if( mainAudio ) {
             mainAudio.play();
         }
+		
+		
+		// If the user scrolls we should stop animating. It is bad for UX to ignore user input for more than 100ms: https://docs.google.com/document/d/1bYMyE6NdiAupuwl7pWQfB-vOZBPSsXCv57hljLDMV8E/edit
+		var cancelOnScroll = function () {
+            animationFinished(true);
+
+            if (document.removeEventListener) {
+                document.removeEventListener("mousewheel", cancelOnScroll, false); // IE9+, Chrome, Safari, Opera
+                document.removeEventListener("DOMMouseScroll", cancelOnScroll, false); // Firefox
+            }
+            else
+            {
+                document.detachEvent("onmousewheel", cancelOnScroll); // IE 6/7/8
+            }
+        }
+        if (document.addEventListener) {
+            // IE9+, Chrome, Safari, Opera
+            document.addEventListener("mousewheel", cancelOnScroll, false);
+            // Firefox
+            document.addEventListener("DOMMouseScroll", cancelOnScroll, false);
+        }
+		// IE 6/7/8
+        else {
+			document.attachEvent("onmousewheel", cancelOnScroll);
+		}
     }
 
     function resetPositions() {
@@ -113,7 +142,7 @@ var Elevator = (function() {
         elevating = false;
     }
 
-    function animationFinished() {
+    function animationFinished(dontDing) {
         
         resetPositions();
 
@@ -123,7 +152,7 @@ var Elevator = (function() {
             mainAudio.currentTime = 0;
         }
 
-        if( endAudio ) {
+        if( endAudio && !dontDing ) {
             endAudio.play();
         }
     }
@@ -145,7 +174,6 @@ var Elevator = (function() {
         }
     }
 
-    //@TODO: Does this need tap bindings too?
     function bindElevateToElement( element ) {
         element.addEventListener('click', elevate, false);
     }
