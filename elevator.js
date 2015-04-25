@@ -150,10 +150,31 @@ var Elevator = (function() {
         element.addEventListener('click', elevate, false);
     }
 
+    function extendParameters(options, defaults){
+        for(var option in defaults){
+            var t = options[option] === undefined && typeof option !== "function";
+            if(t){
+                options[option] = defaults[option];
+            }
+        }
+        return options;
+    }
+
     function main( options ) {
 
         // Bind to element click event, if need be.
         body = document.body;
+
+        var defaults = {
+            duration: undefined,
+            mainAudio: true,
+            preloadAudio: true,
+            loopAudio: true,
+            endAudio: true
+        };
+
+        options = extendParameters(options, defaults);
+        
 
         if( options.element ) {
             bindElevateToElement( options.element );
@@ -166,8 +187,8 @@ var Elevator = (function() {
 
         if( options.mainAudio ) {
             mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', 'true' ); //@TODO: Option to not preload audio.
-            mainAudio.setAttribute( 'loop', 'true' );
+            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
+            mainAudio.setAttribute( 'loop', options.loopAudio );
         }
 
         if( options.endAudio ) {
