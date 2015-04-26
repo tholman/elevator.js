@@ -1,0 +1,28 @@
+{
+  "name": "elevator.js",
+  "main": "src/elevator.min.js",
+  "version": "1.0.0",
+  "homepage": "http://tholman.com/elevator.js/",
+  "authors": [
+    "Tim Holman ~ timothy.w.holman@gmail.com"
+  ],
+  "description": "Finally, a \"back to top\" button that behaves like a real elevator.",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "elevator"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "requirejs-bower": "*"
+  }
+}
