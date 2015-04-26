@@ -1,5 +1,5 @@
-<!doctype html>
-<html>
+    <!doctype html>
+    <html>
     <head>
         <title> Elevator.js </title>
         <meta name="description" content="Are you sick of clicking 'back to top' buttons on websites, and being lifted to the top without a real elevator experience? Elevator.js is here to help.">
@@ -81,6 +81,43 @@
         </p>
 
         <div class="footer">
+            <div>
+                Animation Style:
+                <select id="animStyle">
+                    <option value="OP1">Random</option>
+                    <option value="OP2">In Sine</option>
+                    <option value="OP3">Out Sine</option>
+                    <option value="OP4">In-Out Sine</option>
+                    <option value="OP5">In Quad</option>
+                    <option value="OP6">Out Quad</option>
+                    <option value="OP7">In-Out Quad</option>
+                    <option value="OP8">In Cubic</option>
+                    <option value="OP9">Out Cubic</option>
+                    <option value="OP10">In-Out Cubic</option>
+                    <option value="OP11">In Quart</option>
+                    <option value="OP12">Out Quart</option>
+                    <option value="OP13">In-Out Quart</option>
+                    <option value="OP14">In Quint</option>
+                    <option value="OP15">Out Quint</option>
+                    <option value="OP16">In-Out Quint</option>
+                    <option value="OP17">In Expo</option>
+                    <option value="OP18">Out Expo</option>
+                    <option value="OP19">In-Out Expo</option>
+                    <option value="OP20">In Circ</option>
+                    <option value="OP21">Out Circ</option>
+                    <option value="OP22">In-Out Circ</option>
+                    <option value="OP23">In Back</option>
+                    <option value="OP24">Out Back</option>
+                    <option value="OP25">In-Out Back</option>
+                    <option value="OP26">In Elastic</option>
+                    <option value="OP27">Out Elastic</option>
+                    <option value="OP28">In-Out Elastic</option>
+                    <option value="OP29">In Bounce</option>
+                    <option value="OP30">Out Bounce</option>
+                    <option value="OP31">In-Out Bounce</option>
+                </select>
+            </div>
+            <br>
             <div class="back-to-top">
                 <div class="elevator">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" height="100px" width="100px">
@@ -98,17 +135,17 @@
 
         <script>
 
-            // Simple elevator usage.
-            var elementButton = document.querySelector('.elevator');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: './music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  './music/ding.mp3' // Music from http://www.bensound.com/
-            });
+                // Simple elevator usage.
+                var elementButton = document.querySelector('.elevator');
+                var elevator = new Elevator({
+                    element: elementButton,
+                    mainAudio: './music/elevator-music.mp3', // Music from http://www.bensound.com/
+                    endAudio:  './music/ding.mp3' // Music from http://www.bensound.com/
+                });
 
-        </script>
+            </script>
 
-        <!-- Tweet Button -->
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </body>
-</html>
+            <!-- Tweet Button -->
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </body>
+        </html>
