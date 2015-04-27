@@ -1,5 +1,5 @@
 /*!
- * Elevator.js
+  * Elevator.js
  *
  * MIT licensed
  * Copyright (C) 2015 Tim Holman, http://tholman.com
@@ -56,13 +56,11 @@ var Elevator = (function() {
 
     // Time is passed through requestAnimationFrame, what a world!
     function animateLoop( time ) {
-        if (!startTime) {
-            startTime = time;
-        }
+        if (!startTime) startTime = time;
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);                        
-        
+        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);
+
         window.scrollTo(0, easedPosition);
 
         if( timeSoFar < duration ) {
@@ -86,25 +84,18 @@ var Elevator = (function() {
 //     C__O__O__O__D
 //    [_____________]
     function elevate() {
-
-        if( elevating ) {
-            return;
-        }
+        if(elevating) return;
 
         elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
-        
+
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
-        if( !customDuration ) {
-            duration = (startPosition * 1.5);
-        }
+        if (!customDuration) duration = (startPosition * 1.5);
 
         requestAnimationFrame( animateLoop );
 
         // Start music!
-        if( mainAudio ) {
-            mainAudio.play();
-        }
+        if (mainAudio) mainAudio.play();
     }
 
     function resetPositions() {
@@ -114,7 +105,7 @@ var Elevator = (function() {
     }
 
     function animationFinished() {
-        
+
         resetPositions();
 
         // Stop music!
@@ -123,9 +114,7 @@ var Elevator = (function() {
             mainAudio.currentTime = 0;
         }
 
-        if( endAudio ) {
-            endAudio.play();
-        }
+        if (endAudio) endAudio.play();
     }
 
     function onWindowBlur() {
@@ -153,9 +142,7 @@ var Elevator = (function() {
     function extendParameters(options, defaults){
         for(var option in defaults){
             var t = options[option] === undefined && typeof option !== "function";
-            if(t){
-                options[option] = defaults[option];
-            }
+            if (t) options[option] = defaults[option];
         }
         return options;
     }
@@ -174,11 +161,9 @@ var Elevator = (function() {
         };
 
         options = extendParameters(options, defaults);
-        
 
-        if( options.element ) {
-            bindElevateToElement( options.element );
-        }
+
+        if (options.element) bindElevateToElement(options.element);
 
         if( options.duration ) {
             customDuration = true;
@@ -187,7 +172,7 @@ var Elevator = (function() {
 
         if( options.mainAudio ) {
             mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
+            mainAudio.setAttribute( 'preload', options.preloadAudio );
             mainAudio.setAttribute( 'loop', options.loopAudio );
         }
 
