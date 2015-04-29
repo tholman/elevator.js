@@ -22,11 +22,10 @@ var Elevator = (function() {
     var customDuration = false;
     var startTime = null;
     var startPosition = null;
+    var elevating = false;
 
     var mainAudio;
     var endAudio;
-
-    var elevating = false;
 
     /**
      * Utils
@@ -175,7 +174,6 @@ var Elevator = (function() {
 
         options = extendParameters(options, defaults);
         
-
         if( options.element ) {
             bindElevateToElement( options.element );
         }
