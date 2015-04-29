@@ -45,7 +45,7 @@ window.onload = function() {
 </script>
 ```
 
-If you're really serious (boring), you don't have to use audio... and can also set a fixed time to scroll to the top
+If you're really serious (boring), you can disable the audio by setting `mainAudio` and `endAudio` to `false`. You can also set a fixed time to scroll to the top
 ```html
 <div class="elevator-button">Back to Top</div>
 
@@ -56,6 +56,8 @@ window.onload = function() {
   var elevator = new Elevator({
     element: document.querySelector('.elevator-button'),
     duration: 1000 // milliseconds
+    mainAudio: false,
+    endAudio: false
   });
 }
 </script>
