@@ -167,10 +167,10 @@ var Elevator = (function() {
 
         var defaults = {
             duration: undefined,
-            mainAudio: true,
+            mainAudio: false,
             preloadAudio: true,
             loopAudio: true,
-            endAudio: true
+            endAudio: false
         };
 
         options = extendParameters(options, defaults);
