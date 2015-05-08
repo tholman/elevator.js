@@ -26,7 +26,6 @@ var Elevator = (function() {
 
     var mainAudio;
     var endAudio;
-    var rand;
 
     /**
      * Utils
@@ -71,8 +70,8 @@ var Elevator = (function() {
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);                        
-        
+        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);
+
         window.scrollTo(0, easedPosition);
 
         if( timeSoFar < duration ) {
@@ -103,7 +102,7 @@ var Elevator = (function() {
 
         elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
-        
+
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if( !customDuration ) {
             duration = (startPosition * 1.5);
@@ -113,6 +112,7 @@ var Elevator = (function() {
 
         // Start music!
         if( mainAudio ) {
+            console.log("Play")
             mainAudio.play();
         }
     }
@@ -124,7 +124,7 @@ var Elevator = (function() {
     }
 
     function animationFinished() {
-        
+
         resetPositions();
 
         // Stop music!
@@ -175,7 +175,7 @@ var Elevator = (function() {
         };
 
         options = extendParameters(options, defaults);
-        
+
         if( options.element ) {
             bindElevateToElement( options.element );
         }
@@ -187,14 +187,14 @@ var Elevator = (function() {
 
         if( options.mainAudio ) {
             mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
+            mainAudio.setAttribute( 'preload', options.preloadAudio );
             mainAudio.setAttribute( 'loop', options.loopAudio );
         }
-        
+
         if( options.mainAudioArray ) {
-            rand = Math.floor((Math.random() * options.mainAudioArray.length));
-            mainAudio = new Audio( options.audioArray[rand] );
-            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
+            var rand = Math.floor((Math.random() * options.mainAudioArray.length));
+            mainAudio = new Audio( options.mainAudioArray[rand] );
+            mainAudio.setAttribute( 'preload', options.preloadAudio );
             mainAudio.setAttribute( 'loop', options.loopAudio );
         }
 
@@ -202,11 +202,11 @@ var Elevator = (function() {
             endAudio = new Audio( options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
         }
-        
+
         if( options.endAudioArray ) {
-            rand = Math.floor((Math.random() * options.endAudioArray.length));
-            endAudio = new Audio( options.audioArray[rand] );
-            endAudio.setAttribute( 'preload', options.preloadAudio ); 
+            var rand = Math.floor((Math.random() * options.endAudioArray.length));
+            endAudio = new Audio( options.endAudioArray[rand] );
+            endAudio.setAttribute( 'preload', options.preloadAudio );
         }
 
         window.addEventListener('blur', onWindowBlur, false);
