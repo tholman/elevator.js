@@ -26,6 +26,7 @@ var Elevator = (function() {
 
     var mainAudio;
     var endAudio;
+    var rand;
 
     /**
      * Utils
@@ -167,6 +168,7 @@ var Elevator = (function() {
         var defaults = {
             duration: undefined,
             mainAudio: false,
+            audioArray: false,
             endAudio: false,
             preloadAudio: true,
             loopAudio: true,
@@ -188,10 +190,23 @@ var Elevator = (function() {
             mainAudio.setAttribute( 'preload', options.preloadAudio ); 
             mainAudio.setAttribute( 'loop', options.loopAudio );
         }
+        
+        if( options.mainAudioArray ) {
+            rand = Math.floor((Math.random() * options.mainAudioArray.length));
+            mainAudio = new Audio( options.audioArray[rand] );
+            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
+            mainAudio.setAttribute( 'loop', options.loopAudio );
+        }
 
         if( options.endAudio ) {
             endAudio = new Audio( options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
+        }
+        
+        if( options.endAudioArray ) {
+            rand = Math.floor((Math.random() * options.endAudioArray.length));
+            endAudio = new Audio( options.audioArray[rand] );
+            endAudio.setAttribute( 'preload', options.preloadAudio ); 
         }
 
         window.addEventListener('blur', onWindowBlur, false);
