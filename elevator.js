@@ -112,7 +112,6 @@ var Elevator = (function() {
 
         // Start music!
         if( mainAudio ) {
-            console.log("Play")
             mainAudio.play();
         }
     }
