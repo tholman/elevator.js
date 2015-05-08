@@ -45,6 +45,23 @@ window.onload = function() {
 </script>
 ```
 
+If you want an audo track to be randomly selected from a list, just use "mainAudioArray" or "endAudioArray".
+```html
+<div class="elevator-button">Back to Top</div>
+
+<script>
+// Elevator script included on the page, already.
+
+window.onload = function() {
+  var elevator = new Elevator({
+    element: document.querySelector('.elevator-button'),
+    mainAudioArray: ['/src/to/audio1.mp3', '/src/to/audio2.mp3'],
+    endAudioArray: ['/src/to/end-audio1.mp3', '/src/to/end-audio2.mp3']
+  });
+}
+</script>
+```
+
 If you're really serious (boring), you don't have to use audio... and can also set a fixed time to scroll to the top
 ```html
 <div class="elevator-button">Back to Top</div>
