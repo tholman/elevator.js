@@ -70,8 +70,8 @@ var Elevator = (function() {
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);                        
-        
+        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);
+
         window.scrollTo(0, easedPosition);
 
         if( timeSoFar < duration ) {
@@ -102,7 +102,7 @@ var Elevator = (function() {
 
         elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
-        
+
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if( !customDuration ) {
             duration = (startPosition * 1.5);
@@ -123,7 +123,7 @@ var Elevator = (function() {
     }
 
     function animationFinished() {
-        
+
         resetPositions();
 
         // Stop music!
@@ -167,13 +167,14 @@ var Elevator = (function() {
         var defaults = {
             duration: undefined,
             mainAudio: false,
+            audioArray: false,
             endAudio: false,
             preloadAudio: true,
             loopAudio: true,
         };
 
         options = extendParameters(options, defaults);
-        
+
         if( options.element ) {
             bindElevateToElement( options.element );
         }
@@ -185,13 +186,26 @@ var Elevator = (function() {
 
         if( options.mainAudio ) {
             mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
+            mainAudio.setAttribute( 'preload', options.preloadAudio );
+            mainAudio.setAttribute( 'loop', options.loopAudio );
+        }
+
+        if( options.mainAudioArray ) {
+            var rand = Math.floor((Math.random() * options.mainAudioArray.length));
+            mainAudio = new Audio( options.mainAudioArray[rand] );
+            mainAudio.setAttribute( 'preload', options.preloadAudio );
             mainAudio.setAttribute( 'loop', options.loopAudio );
         }
 
         if( options.endAudio ) {
             endAudio = new Audio( options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
+        }
+
+        if( options.endAudioArray ) {
+            var rand = Math.floor((Math.random() * options.endAudioArray.length));
+            endAudio = new Audio( options.endAudioArray[rand] );
+            endAudio.setAttribute( 'preload', options.preloadAudio );
         }
 
         window.addEventListener('blur', onWindowBlur, false);
