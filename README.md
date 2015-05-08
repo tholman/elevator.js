@@ -45,7 +45,7 @@ window.onload = function() {
 </script>
 ```
 
-If you want an audo track to be randomly selected from a list, just use "mainAudioArray" or "endAudioArray".
+If you want an audo track to be randomly selected from a list, you can do that too.
 ```html
 <div class="elevator-button">Back to Top</div>
 
