@@ -183,6 +183,13 @@ var Elevator = (function() {
             duration = options.duration;
         }
 
+        window.addEventListener('blur', onWindowBlur, false);
+
+        // If the browser doesn't support audio, stop here!
+        if ( !window.Audio ) {
+            return;
+        }
+
         if( options.mainAudio ) {
             mainAudio = new Audio( options.mainAudio );
             mainAudio.setAttribute( 'preload', options.preloadAudio ); 
@@ -194,7 +201,6 @@ var Elevator = (function() {
             endAudio.setAttribute( 'preload', 'true' );
         }
 
-        window.addEventListener('blur', onWindowBlur, false);
     }
 
     return extend(main, {
