@@ -65,6 +65,6 @@ window.onload = function() {
 
 Elevator.js is covered by the MIT License.
 
-Audio in the Demo (sourced from [BenSound](http://www.bensound.com/)) is Creative Commons.
+Audio in the Demo (sourced from [BenSound](http://www.bensound.com/)) is licensed under the terms of [CC BY-ND 3.0](https://creativecommons.org/licenses/by-nd/3.0/).
 
 Copyright (C) 2015 ~ [Tim Holman](http://tholman.com) ~ timothy.w.holman@gmail.com
