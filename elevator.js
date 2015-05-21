@@ -43,14 +43,14 @@ var Elevator = (function() {
 
     // Thanks Mr Penner - http://robertpenner.com/easing/
     function easeInOutQuad( t, b, c, d ) {
-        t /= d/2;
-        if (t < 1) return c/2*t*t + b;
+        t /= d / 2;
+        if ( t < 1 ) return c / 2 * t * t + b;
         t--;
-        return -c/2 * (t*(t-2) - 1) + b;
+        return -c / 2 * ( t * ( t -2 ) - 1 ) + b;
     };
 
     function extendParameters(options, defaults){
-        for(var option in defaults){
+        for( var option in defaults ){
             var t = options[option] === undefined && typeof option !== "function";
             if(t){
                 options[option] = defaults[option];
@@ -65,13 +65,13 @@ var Elevator = (function() {
 
     // Time is passed through requestAnimationFrame, what a world!
     function animateLoop( time ) {
-        if (!startTime) {
+        if ( !startTime ) {
             startTime = time;
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);                        
-        
+        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);
+
         window.scrollTo(0, easedPosition);
 
         if( timeSoFar < duration ) {
@@ -102,7 +102,7 @@ var Elevator = (function() {
 
         elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
-        
+
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if( !customDuration ) {
             duration = (startPosition * 1.5);
@@ -123,7 +123,7 @@ var Elevator = (function() {
     }
 
     function animationFinished() {
-        
+
         resetPositions();
 
         // Stop music!
@@ -173,7 +173,7 @@ var Elevator = (function() {
         };
 
         options = extendParameters(options, defaults);
-        
+
         if( options.element ) {
             bindElevateToElement( options.element );
         }
@@ -192,7 +192,7 @@ var Elevator = (function() {
 
         if( options.mainAudio ) {
             mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
+            mainAudio.setAttribute( 'preload', options.preloadAudio );
             mainAudio.setAttribute( 'loop', options.loopAudio );
         }
 
