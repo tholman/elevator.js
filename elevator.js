@@ -9,7 +9,7 @@
  * Elevator.js
  *********************************************/
 
-var Elevator = (function() {
+var Elevator = function(options) {
 
     'use strict';
 
@@ -27,19 +27,10 @@ var Elevator = (function() {
     var mainAudio;
     var endAudio;
 
+    var that = this;
     /**
      * Utils
      */
-
-    // Soft object augmentation
-    function extend( target, source ) {
-        for ( var key in source ) {
-            if ( !( key in target ) ) {
-                target[ key ] = source[ key ];
-            }
-        }
-        return target;
-    };
 
     // Thanks Mr Penner - http://robertpenner.com/easing/
     function easeInOutQuad( t, b, c, d ) {
@@ -94,7 +85,7 @@ var Elevator = (function() {
 //     C  O  O  O  D
 //     C__O__O__O__D
 //    [_____________]
-    function elevate() {
+    this.elevate = function() {
 
         if( elevating ) {
             return;
@@ -156,10 +147,10 @@ var Elevator = (function() {
 
     //@TODO: Does this need tap bindings too?
     function bindElevateToElement( element ) {
-        element.addEventListener('click', elevate, false);
+        element.addEventListener('click', that.elevate, false);
     }
 
-    function main( options ) {
+    function init( _options ) {
 
         // Bind to element click event, if need be.
         body = document.body;
@@ -172,15 +163,15 @@ var Elevator = (function() {
             loopAudio: true,
         };
 
-        options = extendParameters(options, defaults);
+        _options = extendParameters(_options, defaults);
 
-        if( options.element ) {
-            bindElevateToElement( options.element );
+        if( _options.element ) {
+            bindElevateToElement( _options.element );
         }
 
-        if( options.duration ) {
+        if( _options.duration ) {
             customDuration = true;
-            duration = options.duration;
+            duration = _options.duration;
         }
 
         window.addEventListener('blur', onWindowBlur, false);
@@ -190,20 +181,19 @@ var Elevator = (function() {
             return;
         }
 
-        if( options.mainAudio ) {
-            mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', options.preloadAudio );
-            mainAudio.setAttribute( 'loop', options.loopAudio );
+        if( _options.mainAudio ) {
+            mainAudio = new Audio( _options.mainAudio );
+            mainAudio.setAttribute( 'preload', _options.preloadAudio );
+            mainAudio.setAttribute( 'loop', _options.loopAudio );
         }
 
-        if( options.endAudio ) {
-            endAudio = new Audio( options.endAudio );
+        if( _options.endAudio ) {
+            endAudio = new Audio( _options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
         }
 
     }
 
-    return extend(main, {
-        elevate: elevate
-    });
-})();
+    init(options);
+
+};
