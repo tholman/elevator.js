@@ -38,7 +38,7 @@ var Elevator = function(options) {
         if ( t < 1 ) return c / 2 * t * t + b;
         t--;
         return -c / 2 * ( t * ( t -2 ) - 1 ) + b;
-    };
+    }
 
     function extendParameters(options, defaults){
         for( var option in defaults ){
@@ -70,7 +70,7 @@ var Elevator = function(options) {
         } else {
             animationFinished();
         }
-   };
+     }
 
 //            ELEVATE!
 //              /
@@ -105,6 +105,10 @@ var Elevator = function(options) {
         if( mainAudio ) {
             mainAudio.play();
         }
+    };
+
+    function browserMeetsRequirements() {
+        return window.requestAnimationFrame && window.Audio && window.addEventListener;
     }
 
     function resetPositions() {
@@ -147,11 +151,19 @@ var Elevator = function(options) {
 
     //@TODO: Does this need tap bindings too?
     function bindElevateToElement( element ) {
-        element.addEventListener('click', that.elevate, false);
+        if( element.addEventListener ) {
+            element.addEventListener('click', that.elevate, false);
+        } else {
+            element.attachEvent('onclick', function() {
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+                window.scroll(0, 0);
+            });
+        }
+
     }
 
     function init( _options ) {
-
         // Bind to element click event, if need be.
         body = document.body;
 
@@ -169,17 +181,17 @@ var Elevator = function(options) {
             bindElevateToElement( _options.element );
         }
 
+        // Take the stairs instead
+        if( !browserMeetsRequirements() ) {
+            return;
+        }
+
         if( _options.duration ) {
             customDuration = true;
             duration = _options.duration;
         }
 
         window.addEventListener('blur', onWindowBlur, false);
-
-        // If the browser doesn't support audio, stop here!
-        if ( !window.Audio ) {
-            return;
-        }
 
         if( _options.mainAudio ) {
             mainAudio = new Audio( _options.mainAudio );
