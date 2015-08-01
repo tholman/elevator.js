@@ -9,7 +9,7 @@
  * Elevator.js
  *********************************************/
 
-var Elevator = (function() {
+var Elevator = function(options) {
 
     'use strict';
 
@@ -27,30 +27,22 @@ var Elevator = (function() {
     var mainAudio;
     var endAudio;
 
+    var that = this;
+    
     /**
      * Utils
      */
 
-    // Soft object augmentation
-    function extend( target, source ) {
-        for ( var key in source ) {
-            if ( !( key in target ) ) {
-                target[ key ] = source[ key ];
-            }
-        }
-        return target;
-    };
-
     // Thanks Mr Penner - http://robertpenner.com/easing/
     function easeInOutQuad( t, b, c, d ) {
-        t /= d/2;
-        if (t < 1) return c/2*t*t + b;
+        t /= d / 2;
+        if ( t < 1 ) return c / 2 * t * t + b;
         t--;
-        return -c/2 * (t*(t-2) - 1) + b;
-    };
+        return -c / 2 * ( t * ( t -2 ) - 1 ) + b;
+    }
 
     function extendParameters(options, defaults){
-        for(var option in defaults){
+        for( var option in defaults ){
             var t = options[option] === undefined && typeof option !== "function";
             if(t){
                 options[option] = defaults[option];
@@ -65,13 +57,13 @@ var Elevator = (function() {
 
     // Time is passed through requestAnimationFrame, what a world!
     function animateLoop( time ) {
-        if (!startTime) {
+        if ( !startTime ) {
             startTime = time;
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);                        
-        
+        var easedPosition = easeInOutQuad(timeSoFar, startPosition, -startPosition, duration);
+
         window.scrollTo(0, easedPosition);
 
         if( timeSoFar < duration ) {
@@ -79,7 +71,7 @@ var Elevator = (function() {
         } else {
             animationFinished();
         }
-   };
+     }
 
 //            ELEVATE!
 //              /
@@ -94,7 +86,7 @@ var Elevator = (function() {
 //     C  O  O  O  D
 //     C__O__O__O__D
 //    [_____________]
-    function elevate() {
+    this.elevate = function() {
 
         if( elevating ) {
             return;
@@ -102,7 +94,7 @@ var Elevator = (function() {
 
         elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
-        
+
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if( !customDuration ) {
             duration = (startPosition * 1.5);
@@ -114,6 +106,10 @@ var Elevator = (function() {
         if( mainAudio ) {
             mainAudio.play();
         }
+    };
+
+    function browserMeetsRequirements() {
+        return window.requestAnimationFrame && window.Audio && window.addEventListener;
     }
 
     function resetPositions() {
@@ -123,7 +119,7 @@ var Elevator = (function() {
     }
 
     function animationFinished() {
-        
+
         resetPositions();
 
         // Stop music!
@@ -154,13 +150,20 @@ var Elevator = (function() {
         }
     }
 
-    //@TODO: Does this need tap bindings too?
     function bindElevateToElement( element ) {
-        element.addEventListener('click', elevate, false);
+        if( element.addEventListener ) {
+            element.addEventListener('click', that.elevate, false);
+        } else {
+            // Older browsers
+            element.attachEvent('onclick', function() {
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+                window.scroll(0, 0);
+            });
+        }
     }
 
-    function main( options ) {
-
+    function init( _options ) {
         // Bind to element click event, if need be.
         body = document.body;
 
@@ -172,38 +175,35 @@ var Elevator = (function() {
             loopAudio: true,
         };
 
-        options = extendParameters(options, defaults);
-        
-        if( options.element ) {
-            bindElevateToElement( options.element );
+        _options = extendParameters(_options, defaults);
+
+        if( _options.element ) {
+            bindElevateToElement( _options.element );
         }
 
-        if( options.duration ) {
+        // Take the stairs instead
+        if( !browserMeetsRequirements() ) {
+            return;
+        }
+
+        if( _options.duration ) {
             customDuration = true;
-            duration = options.duration;
+            duration = _options.duration;
         }
 
         window.addEventListener('blur', onWindowBlur, false);
 
-        // If the browser doesn't support audio, stop here!
-        if ( !window.Audio ) {
-            return;
+        if( _options.mainAudio ) {
+            mainAudio = new Audio( _options.mainAudio );
+            mainAudio.setAttribute( 'preload', _options.preloadAudio );
+            mainAudio.setAttribute( 'loop', _options.loopAudio );
         }
 
-        if( options.mainAudio ) {
-            mainAudio = new Audio( options.mainAudio );
-            mainAudio.setAttribute( 'preload', options.preloadAudio ); 
-            mainAudio.setAttribute( 'loop', options.loopAudio );
-        }
-
-        if( options.endAudio ) {
-            endAudio = new Audio( options.endAudio );
+        if( _options.endAudio ) {
+            endAudio = new Audio( _options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
         }
-
     }
 
-    return extend(main, {
-        elevate: elevate
-    });
-})();
+    init(options);
+};
