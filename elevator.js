@@ -28,6 +28,7 @@ var Elevator = function(options) {
     var endAudio;
 
     var that = this;
+    
     /**
      * Utils
      */
@@ -149,18 +150,17 @@ var Elevator = function(options) {
         }
     }
 
-    //@TODO: Does this need tap bindings too?
     function bindElevateToElement( element ) {
         if( element.addEventListener ) {
             element.addEventListener('click', that.elevate, false);
         } else {
+            // Older browsers
             element.attachEvent('onclick', function() {
                 document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0;
                 window.scroll(0, 0);
             });
         }
-
     }
 
     function init( _options ) {
@@ -203,9 +203,7 @@ var Elevator = function(options) {
             endAudio = new Audio( _options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
         }
-
     }
 
     init(options);
-
 };
