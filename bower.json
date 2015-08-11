@@ -1,0 +1,25 @@
+{
+  "name": "elevator.js",
+  "main": "elevator.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/joaocunha/elevator.js",
+  "authors": [
+    "Tim Holman <timothy.w.holman@gmail.com>",
+    "Joao Cunha <joao@joaocunha.net>"
+  ],
+  "description": "Finally, a \"back to top\" button that behaves like a real elevator. A fork of tholman/elevator.js.",
+  "keywords": [
+    "elevator",
+    "javascript",
+    "tholman",
+    "ding"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
