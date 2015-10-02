@@ -45,6 +45,24 @@ window.onload = function() {
 </script>
 ```
 
+If you don't want to scroll to the top, a custom target can be specified by adding a "targetElement" option:
+```html
+<div class="elevator-button">Take the elevator to the target</div>
+
+<script>
+// Elevator script included on the page, already.
+
+window.onload = function() {
+  var elevator = new Elevator({
+    element: document.querySelector('.elevator-button'),
+	targetElement: document.querySelector('#elevator-target'),
+    mainAudio: '/src/to/audio.mp3',
+    endAudio: '/src/to/end-audio.mp3'
+  });
+}
+</script>
+```
+
 If you're really serious (boring), you don't have to use audio... and can also set a fixed time to scroll to the top
 ```html
 <div class="elevator-button">Back to Top</div>
