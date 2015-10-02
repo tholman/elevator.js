@@ -22,7 +22,7 @@ var Elevator = function(options) {
     var customDuration = false;
     var startTime = null;
     var startPosition = null;
-	var endPosition = 0;
+    var endPosition = 0;
     var elevating = false;
 
     var mainAudio;
@@ -51,15 +51,15 @@ var Elevator = function(options) {
         }
         return options;
     }
-	
-	function getVerticalOffset(element) {
-		var verticalOffset = 0;
-		while( element ){
-			verticalOffset += element.offsetTop || 0;
-			element = element.offsetParent;
-		}		
-		return verticalOffset;
-	}
+
+    function getVerticalOffset(element) {
+        var verticalOffset = 0;
+        while( element ){
+            verticalOffset += element.offsetTop || 0;
+            element = element.offsetParent;
+        }
+        return verticalOffset;
+    }
 
     /**
      * Main
@@ -200,10 +200,10 @@ var Elevator = function(options) {
             customDuration = true;
             duration = _options.duration;
         }
-		
-		if( _options.targetElement ) {
-			endPosition = getVerticalOffset(_options.targetElement);
-		}
+
+        if( _options.targetElement ) {
+            endPosition = getVerticalOffset(_options.targetElement);
+        }
 
         window.addEventListener('blur', onWindowBlur, false);
 
