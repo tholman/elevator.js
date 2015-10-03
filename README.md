@@ -55,7 +55,7 @@ If you don't want to scroll to the top, a custom target can be specified by addi
 window.onload = function() {
   var elevator = new Elevator({
     element: document.querySelector('.elevator-button'),
-	targetElement: document.querySelector('#elevator-target'),
+    targetElement: document.querySelector('#elevator-target'),
     mainAudio: '/src/to/audio.mp3',
     endAudio: '/src/to/end-audio.mp3'
   });

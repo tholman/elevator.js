@@ -72,7 +72,7 @@ var Elevator = function(options) {
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(timeSoFar, startPosition, endPosition-startPosition, duration);
+        var easedPosition = easeInOutQuad(timeSoFar, startPosition, endPosition - startPosition, duration);
 
         window.scrollTo(0, easedPosition);
 
