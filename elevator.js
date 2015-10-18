@@ -25,11 +25,13 @@ var Elevator = function(options) {
     var endPosition = 0;
     var elevating = false;
 
+    var startCallback;
     var mainAudio;
     var endAudio;
+    var endCallback;
 
     var that = this;
-    
+
     /**
      * Utils
      */
@@ -81,7 +83,7 @@ var Elevator = function(options) {
         } else {
             animationFinished();
         }
-     }
+    }
 
 //            ELEVATE!
 //              /
@@ -116,6 +118,10 @@ var Elevator = function(options) {
         if( mainAudio ) {
             mainAudio.play();
         }
+
+        if( startCallback ) {
+            startCallback();
+        }
     };
 
     function browserMeetsRequirements() {
@@ -141,6 +147,10 @@ var Elevator = function(options) {
         if( endAudio ) {
             endAudio.play();
         }
+
+        if( endCallback ) {
+            endCallback();
+        }
     }
 
     function onWindowBlur() {
@@ -161,16 +171,7 @@ var Elevator = function(options) {
     }
 
     function bindElevateToElement( element ) {
-        if( element.addEventListener ) {
-            element.addEventListener('click', that.elevate, false);
-        } else {
-            // Older browsers
-            element.attachEvent('onclick', function() {
-                document.documentElement.scrollTop = endPosition;
-                document.body.scrollTop = endPosition;
-                window.scroll(0, endPosition);
-            });
-        }
+        $(element).on('click', that.elevate);
     }
 
     function init( _options ) {
@@ -182,7 +183,7 @@ var Elevator = function(options) {
             mainAudio: false,
             endAudio: false,
             preloadAudio: true,
-            loopAudio: true,
+            loopAudio: true
         };
 
         _options = extendParameters(_options, defaults);
@@ -216,6 +217,14 @@ var Elevator = function(options) {
         if( _options.endAudio ) {
             endAudio = new Audio( _options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
+        }
+
+        if( _options.endCallback ) {
+            endCallback = _options.endCallback;
+        }
+
+        if( _options.startCallback ) {
+            startCallback = _options.startCallback;
         }
     }
 
