@@ -171,7 +171,16 @@ var Elevator = function(options) {
     }
 
     function bindElevateToElement( element ) {
-        $(element).on('click', that.elevate);
+        if( element.addEventListener ) {
+            element.addEventListener('click', that.elevate, false);
+        } else {
+            // Older browsers
+            element.attachEvent('onclick', function() {
+                document.documentElement.scrollTop = endPosition;
+                document.body.scrollTop = endPosition;
+                window.scroll(0, endPosition);
+            });
+        }
     }
 
     function init( _options ) {
