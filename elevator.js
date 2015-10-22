@@ -25,11 +25,13 @@ var Elevator = function(options) {
     var endPosition = 0;
     var elevating = false;
 
+    var startCallback;
     var mainAudio;
     var endAudio;
+    var endCallback;
 
     var that = this;
-    
+
     /**
      * Utils
      */
@@ -81,7 +83,7 @@ var Elevator = function(options) {
         } else {
             animationFinished();
         }
-     }
+    }
 
 //            ELEVATE!
 //              /
@@ -116,6 +118,10 @@ var Elevator = function(options) {
         if( mainAudio ) {
             mainAudio.play();
         }
+
+        if( startCallback ) {
+            startCallback();
+        }
     };
 
     function browserMeetsRequirements() {
@@ -140,6 +146,10 @@ var Elevator = function(options) {
 
         if( endAudio ) {
             endAudio.play();
+        }
+
+        if( endCallback ) {
+            endCallback();
         }
     }
 
@@ -183,6 +193,8 @@ var Elevator = function(options) {
             endAudio: false,
             preloadAudio: true,
             loopAudio: true,
+            startCallback: null,
+            endCallback: null
         };
 
         _options = extendParameters(_options, defaults);
@@ -216,6 +228,14 @@ var Elevator = function(options) {
         if( _options.endAudio ) {
             endAudio = new Audio( _options.endAudio );
             endAudio.setAttribute( 'preload', 'true' );
+        }
+
+        if( _options.endCallback ) {
+            endCallback = _options.endCallback;
+        }
+
+        if( _options.startCallback ) {
+            startCallback = _options.startCallback;
         }
     }
 

@@ -79,6 +79,26 @@ window.onload = function() {
 </script>
 ```
 
+If you use elevator.js in combination with other code, you might want to use callbacks
+```html
+<script>
+window.onload = function() {
+   new Elevator({
+       element: document.querySelector('.elevator-button'),
+       mainAudio: '/src/to/audio.mp3',
+       endAudio: '/src/to/end-audio.mp3',
+       duration: 5000,
+       startCallback: function() {
+         // is called, when the elevator starts moving
+       },
+       endCallback: function() {
+         // is called, when the elevator reached target level
+       }
+   });
+}
+</script>
+```
+
 ### License
 
 Elevator.js is covered by the MIT License.
