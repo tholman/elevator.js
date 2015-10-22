@@ -192,7 +192,9 @@ var Elevator = function(options) {
             mainAudio: false,
             endAudio: false,
             preloadAudio: true,
-            loopAudio: true
+            loopAudio: true,
+            startCallback: null,
+            endCallback: null
         };
 
         _options = extendParameters(_options, defaults);
