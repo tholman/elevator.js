@@ -23,6 +23,7 @@ var Elevator = function(options) {
     var startTime = null;
     var startPosition = null;
     var endPosition = 0;
+    var targetElement = null;
     var elevating = false;
 
     var startCallback;
@@ -106,10 +107,11 @@ var Elevator = function(options) {
 
         elevating = true;
         startPosition = (document.documentElement.scrollTop || body.scrollTop);
+        updateEndPosition();
 
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if( !customDuration ) {
-            duration = (startPosition * 1.5);
+            duration = ( Math.abs(endPosition - startPosition) * 1.5);
         }
 
         requestAnimationFrame( animateLoop );
@@ -132,6 +134,12 @@ var Elevator = function(options) {
         startTime = null;
         startPosition = null;
         elevating = false;
+    }
+
+    function updateEndPosition() {
+        if(targetElement){
+            endPosition = getVerticalOffset(targetElement);            
+        }
     }
 
     function animationFinished() {
@@ -166,6 +174,7 @@ var Elevator = function(options) {
                 mainAudio.currentTime = 0;
             }
 
+            updateEndPosition();            
             window.scrollTo(0, endPosition);
         }
     }
@@ -176,6 +185,7 @@ var Elevator = function(options) {
         } else {
             // Older browsers
             element.attachEvent('onclick', function() {
+                updateEndPosition();
                 document.documentElement.scrollTop = endPosition;
                 document.body.scrollTop = endPosition;
                 window.scroll(0, endPosition);
@@ -214,7 +224,7 @@ var Elevator = function(options) {
         }
 
         if( _options.targetElement ) {
-            endPosition = getVerticalOffset(_options.targetElement);
+            targetElement = _options.targetElement;
         }
 
         window.addEventListener('blur', onWindowBlur, false);
