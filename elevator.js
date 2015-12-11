@@ -20,6 +20,7 @@ var Elevator = function(options) {
     var animation = null;
     var duration = null; // ms
     var customDuration = false;
+    var speed = 1.5;
     var startTime = null;
     var startPosition = null;
     var endPosition = 0;
@@ -111,7 +112,7 @@ var Elevator = function(options) {
 
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if( !customDuration ) {
-            duration = ( Math.abs(endPosition - startPosition) * 1.5);
+            duration = ( Math.abs(endPosition - startPosition) * speed);
         }
 
         requestAnimationFrame( animateLoop );
@@ -202,6 +203,7 @@ var Elevator = function(options) {
             mainAudio: false,
             endAudio: false,
             preloadAudio: true,
+            speed: 1.5,
             loopAudio: true,
             startCallback: null,
             endCallback: null
@@ -222,6 +224,11 @@ var Elevator = function(options) {
             customDuration = true;
             duration = _options.duration;
         }
+
+        if( _options.speed ) {
+            speed = _options.speed;
+        }
+
 
         if( _options.targetElement ) {
             targetElement = _options.targetElement;
