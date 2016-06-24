@@ -138,7 +138,7 @@ var Elevator = function(options) {
 
     function updateEndPosition() {
         if(targetElement){
-            endPosition = getVerticalOffset(targetElement);            
+            endPosition = getVerticalOffset(targetElement);
         }
     }
 
@@ -174,7 +174,7 @@ var Elevator = function(options) {
                 mainAudio.currentTime = 0;
             }
 
-            updateEndPosition();            
+            updateEndPosition();
             window.scrollTo(0, endPosition);
         }
     }
@@ -251,3 +251,5 @@ var Elevator = function(options) {
 
     init(options);
 };
+
+module.exports = Elevator;
