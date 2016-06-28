@@ -24,6 +24,7 @@ var Elevator = function(options) {
     var startPosition = null;
     var endPosition = 0;
     var targetElement = null;
+    var verticalPadding = null;
     var elevating = false;
 
     var startCallback;
@@ -61,6 +62,11 @@ var Elevator = function(options) {
             verticalOffset += element.offsetTop || 0;
             element = element.offsetParent;
         }
+
+        if ( verticalPadding ) {
+          verticalOffset = verticalOffset - verticalPadding;
+        }
+
         return verticalOffset;
     }
 
@@ -225,6 +231,10 @@ var Elevator = function(options) {
 
         if( _options.targetElement ) {
             targetElement = _options.targetElement;
+        }
+
+        if( _options.verticalPadding ) {
+            verticalPadding = _options.verticalPadding;
         }
 
         window.addEventListener('blur', onWindowBlur, false);
