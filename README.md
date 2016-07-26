@@ -63,6 +63,26 @@ window.onload = function() {
 </script>
 ```
 
+If you want to scroll to a point on the page with some extra padding on the top, simply add the "verticalPadding" option:
+
+```html
+<div class="elevator-button">Take the elevator to the target</div>
+
+<script>
+// Elevator script included on the page, already.
+
+window.onload = function() {
+  var elevator = new Elevator({
+    element: document.querySelector('.elevator-button'),
+    targetElement: document.querySelector('#elevator-target'),
+    verticalPadding: 100,  // in pixels
+    mainAudio: '/src/to/audio.mp3',
+    endAudio: '/src/to/end-audio.mp3'
+  });
+}
+</script>
+```
+
 If you're really serious (boring), you don't have to use audio... and can also set a fixed time to scroll to the top
 ```html
 <div class="elevator-button">Back to Top</div>
