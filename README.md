@@ -12,6 +12,7 @@ This is very serious stuff, [here's a demo](http://tholman.com/elevator.js)!
 `Elevator.js` lives entirely within the js realm, which makes things fairly simple to use.
 
 You'll need to create a new instance of `Elevator`, and pass it some audio elements.
+
 ```html
 <script>
 // Elevator script included on the page, already.
@@ -118,6 +119,9 @@ window.onload = function() {
 }
 </script>
 ```
+
+### NPM
+The package is also available via [NPM](https://www.npmjs.com/package/elevator.js)
 
 ### License
 
