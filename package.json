@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freestylebit/elevator.js.git"
+    "url": "git+https://github.com/tholman/elevator.js.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/freestylebit/elevator.js/issues"
+    "url": "https://github.com/tholman/elevator.js/issues"
   },
-  "homepage": "https://github.com/freestylebit/elevator.js#readme"
+  "homepage": "https://github.com/tholman/elevator.js#readme"
 }
