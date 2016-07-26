@@ -24,6 +24,7 @@ var Elevator = function(options) {
     var startPosition = null;
     var endPosition = 0;
     var targetElement = null;
+    var verticalPadding = null;
     var elevating = false;
 
     var startCallback;
@@ -61,6 +62,11 @@ var Elevator = function(options) {
             verticalOffset += element.offsetTop || 0;
             element = element.offsetParent;
         }
+
+        if ( verticalPadding ) {
+          verticalOffset = verticalOffset - verticalPadding;
+        }
+
         return verticalOffset;
     }
 
@@ -138,7 +144,7 @@ var Elevator = function(options) {
 
     function updateEndPosition() {
         if(targetElement){
-            endPosition = getVerticalOffset(targetElement);            
+            endPosition = getVerticalOffset(targetElement);
         }
     }
 
@@ -174,7 +180,7 @@ var Elevator = function(options) {
                 mainAudio.currentTime = 0;
             }
 
-            updateEndPosition();            
+            updateEndPosition();
             window.scrollTo(0, endPosition);
         }
     }
@@ -227,6 +233,10 @@ var Elevator = function(options) {
             targetElement = _options.targetElement;
         }
 
+        if( _options.verticalPadding ) {
+            verticalPadding = _options.verticalPadding;
+        }
+
         window.addEventListener('blur', onWindowBlur, false);
 
         if( _options.mainAudio ) {
@@ -251,3 +261,5 @@ var Elevator = function(options) {
 
     init(options);
 };
+
+module.exports = Elevator;

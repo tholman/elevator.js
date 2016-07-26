@@ -1,0 +1,19 @@
+{
+  "name": "elevator.js",
+  "version": "1.0.0",
+  "description": "Elevator.js fixes those awkward \"scroll to top\" moments the old fashioned way.",
+  "main": "elevator.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tholman/elevator.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tholman/elevator.js/issues"
+  },
+  "homepage": "https://github.com/tholman/elevator.js#readme"
+}
