@@ -259,7 +259,7 @@ var Elevator = function(options) {
         }
     }
 
-    // An option to stop the scroll at a preffered point
+    // An option to stop the scroll at a preferred point
     // needs implementation, stil in its early stage
 
     var stopElevator = document.body;
