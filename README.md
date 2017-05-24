@@ -123,6 +123,11 @@ window.onload = function() {
 ### NPM
 The package is also available via [NPM](https://www.npmjs.com/package/elevator.js)
 
+### CDN
+Include the latest 1.x version directly from a CDN
+
+```https://cdn.jsdelivr.net/npm/elevator.js@1/elevator.min.js```
+
 ### License
 
 Elevator.js is covered by the MIT License.
