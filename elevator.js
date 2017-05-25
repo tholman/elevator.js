@@ -232,9 +232,17 @@ var Elevator = function(options) {
         if( _options.targetElement ) {
             targetElement = _options.targetElement;
         }
+        
+        if( options.mainVolume ) {
+            mainAudio.volume = options.mainVolume;
+        }
 
         if( _options.verticalPadding ) {
             verticalPadding = _options.verticalPadding;
+        }
+        
+        if( options.endVolume ) {
+            endAudio.volume = options.endVolume;
         }
 
         window.addEventListener('blur', onWindowBlur, false);
