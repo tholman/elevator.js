@@ -18,14 +18,15 @@ You'll need to create a new instance of `Elevator`, and pass it some audio eleme
 // Elevator script included on the page, already.
 
 window.onload = function() {
-  var elevator = new Elevator({
+  new Elevator({
     mainAudio: '/src/to/audio.mp3',
     endAudio: '/src/to/end-audio.mp3'
   });
 }
 
-// You can run the elevator, by calling.
-elevator.elevate();
+// You can run the elevator, by calling. Caution, Elevator
+// with a capital E
+Elevator.elevate();
 </script>
 ```
 
@@ -37,7 +38,7 @@ You can also add an "element" option, clicking this element will invoke the "Scr
 // Elevator script included on the page, already.
 
 window.onload = function() {
-  var elevator = new Elevator({
+  new Elevator({
     element: document.querySelector('.elevator-button'),
     mainAudio: '/src/to/audio.mp3',
     endAudio: '/src/to/end-audio.mp3'
@@ -92,7 +93,7 @@ If you're really serious (boring), you don't have to use audio... and can also s
 // Elevator script included on the page, already.
 
 window.onload = function() {
-  var elevator = new Elevator({
+  new Elevator({
     element: document.querySelector('.elevator-button'),
     duration: 1000 // milliseconds
   });
