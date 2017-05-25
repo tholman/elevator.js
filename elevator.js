@@ -259,6 +259,18 @@ var Elevator = function(options) {
         }
     }
 
+    // An option to stop the scroll at a preferred point
+    // needs implementation, stil in its early stage
+
+    var stopElevator = document.body;
+    
+    stopElevator.ondblclick = function(){
+        elevating = false;
+        that.elevate();
+        endAudio.play();
+        duration = 0;
+    }
+
     init(options);
 };
 
