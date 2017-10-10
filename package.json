@@ -1,12 +1,9 @@
 {
   "name": "elevator.js",
-  "version": "1.0.0",
-  "description": "Elevator.js fixes those awkward \"scroll to top\" moments the old fashioned way.",
-  "keywords": [
-    "scroll",
-    "top",
-    "elevator"
-  ],
+  "version": "1.0.1",
+  "description":
+    "Elevator.js fixes those awkward \"scroll to top\" moments the old fashioned way.",
+  "keywords": ["scroll", "top", "elevator"],
   "homepage": "http://tholman.com/elevator.js",
   "bugs": {
     "url": "https://github.com/tholman/elevator.js/issues"
