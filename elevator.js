@@ -88,7 +88,11 @@ var Elevator = function(options) {
             duration
         );
 
-        window.scrollTo(0, easedPosition);
+        var scrollEl = window;
+        if (body !== document.body) {
+            scrollEl = body
+        }
+        scrollEl.scrollTo(0, easedPosition);
 
         if (timeSoFar < duration) {
             animation = requestAnimationFrame(animateLoop);
@@ -205,10 +209,8 @@ var Elevator = function(options) {
     }
 
     function init(_options) {
-        // Bind to element click event, if need be.
-        body = document.body;
-
         var defaults = {
+            scrollElement: document.body,
             duration: undefined,
             mainAudio: false,
             endAudio: false,
@@ -219,6 +221,9 @@ var Elevator = function(options) {
         };
 
         _options = extendParameters(_options, defaults);
+
+        // Bind to element click event, if need be.
+        body = _options.scrollElement;
 
         if (_options.element) {
             bindElevateToElement(_options.element);
