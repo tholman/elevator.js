@@ -204,6 +204,23 @@ var Elevator = function(options) {
         }
     }
 
+	function bindAutoVisibility(element, visibilityOffset, visibilityOpacity) {
+		function scrollHandler() {
+			var scrollTop = document.documentElement.scrollTop || 0;
+
+			if (scrollTop > visibilityOffset) {
+				element.style.visibility = 'visible';
+				element.style.opacity = visibilityOpacity;
+			} else {
+				element.style.visibility = 'hidden';
+				element.style.opacity = 0;
+			}
+		}
+
+		window.addEventListener('scroll', scrollHandler);
+		scrollHandler();
+	}
+
     function init(_options) {
         // Bind to element click event, if need be.
         body = document.body;
@@ -228,6 +245,10 @@ var Elevator = function(options) {
         if (!browserMeetsRequirements()) {
             return;
         }
+
+		if (_options.visibilityOffset) {
+			bindAutoVisibility(_options.element, _options.visibilityOffset, _options.visibilityOpacity);
+		}
 
         if (_options.duration) {
             customDuration = true;
