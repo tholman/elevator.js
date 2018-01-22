@@ -222,7 +222,12 @@ var Elevator = function(options) {
 	}
 
     function init(_options) {
-        // Bind to element click event, if need be.
+		// Take the stairs instead
+		if (!browserMeetsRequirements()) {
+			return;
+		}
+
+        // Bind to element click event.
         body = document.body;
 
         var defaults = {
