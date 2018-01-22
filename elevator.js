@@ -246,11 +246,6 @@ var Elevator = function(options) {
             bindElevateToElement(_options.element);
         }
 
-        // Take the stairs instead
-        if (!browserMeetsRequirements()) {
-            return;
-        }
-
 		if (_options.visibilityOffset) {
 			bindAutoVisibility(_options.element, _options.visibilityOffset, _options.visibilityOpacity);
 		}
