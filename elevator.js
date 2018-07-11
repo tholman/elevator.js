@@ -136,6 +136,14 @@ var Elevator = function(options) {
         }
     };
 
+	this.setVerticalPadding = function(vp) {
+		verticalPadding = vp;
+	};
+
+	this.isElevating = function() {
+		return elevating;
+	};
+
     function browserMeetsRequirements() {
         return (
             window.requestAnimationFrame &&
