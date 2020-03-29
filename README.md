@@ -129,4 +129,4 @@ Elevator.js is covered by the MIT License.
 
 Audio in the Demo was bought via [Pond5](https://www.pond5.com/stock-music/11517192/elevator-bossa-nova.html), you will need to license your own.
 
-Copyright (C) 2017 ~ [Tim Holman](http://tholman.com) ~ timothy.w.holman@gmail.com
+Copyright (C) ~ [Tim Holman](http://tholman.com) ~ timothy.w.holman@gmail.com
