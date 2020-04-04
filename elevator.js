@@ -136,6 +136,14 @@ var Elevator = function(options) {
         }
     };
 
+	this.setVerticalPadding = function(vp) {
+		verticalPadding = vp;
+	};
+
+	this.isElevating = function() {
+		return elevating;
+	};
+
     function browserMeetsRequirements() {
         return (
             window.requestAnimationFrame &&
@@ -204,6 +212,23 @@ var Elevator = function(options) {
         }
     }
 
+	function bindAutoVisibility(element, visibilityOffset, visibilityOpacity) {
+		function scrollHandler() {
+			var scrollTop = document.documentElement.scrollTop || 0;
+
+			if (scrollTop > visibilityOffset) {
+				element.style.visibility = 'visible';
+				element.style.opacity = visibilityOpacity;
+			} else {
+				element.style.visibility = 'hidden';
+				element.style.opacity = 0;
+			}
+		}
+
+		window.addEventListener('scroll', scrollHandler);
+		scrollHandler();
+	}
+
     function init(_options) {
 		// Take the stairs instead
 		if (!browserMeetsRequirements()) {
@@ -220,7 +245,9 @@ var Elevator = function(options) {
             preloadAudio: true,
             loopAudio: true,
             startCallback: null,
-            endCallback: null
+            endCallback: null,
+			visibilityOffset: null,
+			visibilityOpacity: 1
         };
 
         _options = extendParameters(_options, defaults);
@@ -228,6 +255,10 @@ var Elevator = function(options) {
         if (_options.element) {
             bindElevateToElement(_options.element);
         }
+
+		if (_options.visibilityOffset) {
+			bindAutoVisibility(_options.element, _options.visibilityOffset, _options.visibilityOpacity);
+		}
 
         if (_options.duration) {
             customDuration = true;
