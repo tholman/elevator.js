@@ -19,6 +19,7 @@ var Elevator = function(options) {
     // Scroll vars
     var animation = null;
     var duration = null; // ms
+    var doorsDurationRatio = null;
     var customDuration = false;
     var startTime = null;
     var startPosition = null;
@@ -93,30 +94,30 @@ var Elevator = function(options) {
                 endPosition - startPosition,
                 duration
             );
-        } else if (timeSoFar < 0.1 * duration) {
+        } else if (timeSoFar < doorsDurationRatio * duration) {
             // Close doors
             doorsPosition = easeInOutQuad(
                 timeSoFar,
                 -52,
                 51,
-                0.1 * duration
+                doorsDurationRatio * duration
             );
-        } else if(timeSoFar < 0.9 * duration) {
+        } else if(timeSoFar < (1 - doorsDurationRatio) * duration) {
             // Safe operation, doors closed
             easedPosition = easeInOutQuad(
-                timeSoFar - 0.1 * duration,
+                timeSoFar - doorsDurationRatio * duration,
                 startPosition,
                 endPosition - startPosition,
-                duration * 0.8
+                duration * (1 - 2 * doorsDurationRatio)
             );
         } else {
             // Open doors
             easedPosition = endPosition;
             doorsPosition = easeInOutQuad(
-                timeSoFar - 0.9 * duration,
+                timeSoFar - (1 - doorsDurationRatio) * duration,
                 -1,
                 -51,
-                0.1 * duration
+                doorsDurationRatio * duration
             );
         }
 
@@ -251,6 +252,7 @@ var Elevator = function(options) {
 
         var defaults = {
             duration: undefined,
+            doorsDurationRatio: 0.1,
             mainAudio: false,
             endAudio: false,
             preloadAudio: true,
@@ -267,6 +269,10 @@ var Elevator = function(options) {
 
         if (_options.doors) {
             doors = _options.doors;
+        }
+
+        if (_options.doorsDurationRatio) {
+            doorsDurationRatio = _options.doorsDurationRatio;
         }
 
         if (_options.duration) {
