@@ -14,6 +14,7 @@ var Elevator = function(options) {
 
     // Elements
     var body = null;
+    var doors = null;
 
     // Scroll vars
     var animation = null;
@@ -81,14 +82,49 @@ var Elevator = function(options) {
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(
-            timeSoFar,
-            startPosition,
-            endPosition - startPosition,
-            duration
-        );
+
+        var easedPosition = startPosition, doorsPosition = -1;
+
+        if (!doors) {
+            // No doors - keep your limbs inside the car at all times!
+            easedPosition = easeInOutQuad(
+                timeSoFar,
+                startPosition,
+                endPosition - startPosition,
+                duration
+            );
+        } else if (timeSoFar < 0.1 * duration) {
+            // Close doors
+            doorsPosition = easeInOutQuad(
+                timeSoFar,
+                -52,
+                51,
+                0.1 * duration
+            );
+        } else if(timeSoFar < 0.9 * duration) {
+            // Safe operation, doors closed
+            easedPosition = easeInOutQuad(
+                timeSoFar - 0.1 * duration,
+                startPosition,
+                endPosition - startPosition,
+                duration * 0.8
+            );
+        } else {
+            // Open doors
+            easedPosition = endPosition;
+            doorsPosition = easeInOutQuad(
+                timeSoFar - 0.9 * duration,
+                -1,
+                -51,
+                0.1 * duration
+            );
+        }
 
         window.scrollTo(0, easedPosition);
+        if (doors) {
+            doors[0].style.left = doorsPosition + 'vw';
+            doors[1].style.right = doorsPosition + 'vw';
+        }
 
         if (timeSoFar < duration) {
             animation = requestAnimationFrame(animateLoop);
@@ -227,6 +263,10 @@ var Elevator = function(options) {
 
         if (_options.element) {
             bindElevateToElement(_options.element);
+        }
+
+        if (_options.doors) {
+            doors = _options.doors;
         }
 
         if (_options.duration) {
