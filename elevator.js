@@ -14,10 +14,12 @@ var Elevator = function(options) {
 
     // Elements
     var body = null;
+    var doors = null;
 
     // Scroll vars
     var animation = null;
     var duration = null; // ms
+    var doorsDurationRatio = null;
     var customDuration = false;
     var startTime = null;
     var startPosition = null;
@@ -81,14 +83,49 @@ var Elevator = function(options) {
         }
 
         var timeSoFar = time - startTime;
-        var easedPosition = easeInOutQuad(
-            timeSoFar,
-            startPosition,
-            endPosition - startPosition,
-            duration
-        );
+
+        var easedPosition = startPosition, doorsPosition = -1;
+
+        if (!doors) {
+            // No doors - keep your limbs inside the car at all times!
+            easedPosition = easeInOutQuad(
+                timeSoFar,
+                startPosition,
+                endPosition - startPosition,
+                duration
+            );
+        } else if (timeSoFar < doorsDurationRatio * duration) {
+            // Close doors
+            doorsPosition = easeInOutQuad(
+                timeSoFar,
+                -52,
+                51,
+                doorsDurationRatio * duration
+            );
+        } else if(timeSoFar < (1 - doorsDurationRatio) * duration) {
+            // Safe operation, doors closed
+            easedPosition = easeInOutQuad(
+                timeSoFar - doorsDurationRatio * duration,
+                startPosition,
+                endPosition - startPosition,
+                duration * (1 - 2 * doorsDurationRatio)
+            );
+        } else {
+            // Open doors
+            easedPosition = endPosition;
+            doorsPosition = easeInOutQuad(
+                timeSoFar - (1 - doorsDurationRatio) * duration,
+                -1,
+                -51,
+                doorsDurationRatio * duration
+            );
+        }
 
         window.scrollTo(0, easedPosition);
+        if (doors) {
+            doors[0].style.left = doorsPosition + 'vw';
+            doors[1].style.right = doorsPosition + 'vw';
+        }
 
         if (timeSoFar < duration) {
             animation = requestAnimationFrame(animateLoop);
@@ -121,7 +158,8 @@ var Elevator = function(options) {
 
         // No custom duration set, so we travel at pixels per millisecond. (0.75px per ms)
         if (!customDuration) {
-            duration = Math.abs(endPosition - startPosition) * 1.5;
+            duration = Math.abs(endPosition - startPosition) * 1.5 + 1000;
+            doorsDurationRatio = 500 / duration;
         }
 
         requestAnimationFrame(animateLoop);
@@ -215,6 +253,7 @@ var Elevator = function(options) {
 
         var defaults = {
             duration: undefined,
+            doorsDurationRatio: 0.1,
             mainAudio: false,
             endAudio: false,
             preloadAudio: true,
@@ -227,6 +266,14 @@ var Elevator = function(options) {
 
         if (_options.element) {
             bindElevateToElement(_options.element);
+        }
+
+        if (_options.doors) {
+            doors = _options.doors;
+        }
+
+        if (_options.doorsDurationRatio) {
+            doorsDurationRatio = _options.doorsDurationRatio;
         }
 
         if (_options.duration) {
